@@ -19,3 +19,43 @@ static double averageWithoutLowest(double[] arr) {
   return sum / (arr.length - 1);
 }
 ```
+This method works for some inputted arrays, but for other inputted arrays it fails to return the correct average. The type of input that produces an error is any array with multiple instances of the lowest value. Shown below is a JUnit test that produces an incorrect result, and the failure message from the terminal.
+```
+@Test
+public void testAverageWithoutLowest() {
+  double[] input1 = {13,24,13,50};
+  assertEquals(25.0, ArrayExamples.averageWithoutLowest(input1), 0);
+}
+```
+The test fails:
+
+Now shown is a JUnit test that produces a correct result, and the resulting success message from the terminal:
+```
+@Test
+public void testAverageWithoutLowest() {
+  double[] input1 = {14,24,12,50};
+  assertEquals(25.0, ArrayExamples.averageWithoutLowest(input1), 0);
+}
+```
+The test succeeds:
+
+The bug originates from this line of code: `if(num != lowest) { sum += num; }` which neglects the value of `num` if it is equal to the lowest value of the array. 
+
+In order to fix this, we have to ensure it only neglects the first instance of the lowest value of the array, and still uses all subsequent instances of that value in the calculation of the average. One way to fix this would be changing the for:each loop that calculates the sum from
+```
+for(double num: arr) {
+    if(num != lowest) { sum += num; }
+}
+```
+to 
+```
+for(double num: arr) {
+    boolean foundLowest = false;
+    if(!foundLowest && num == lowest) {
+      foundLowest = true;
+      continue;
+    }
+    sum += num;
+}
+```
+This fix makes it so that the first time the lowest value is found, it is skipped in calculation and the loop continues to execute. After the first time it finds the lowest value, it changes the boolean `foundLowest` to `true`, so no other values are skipped.
