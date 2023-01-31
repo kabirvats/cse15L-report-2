@@ -28,7 +28,9 @@ public void testAverageWithoutLowest() {
 }
 ```
 The test fails:
+
 ![Image](https://kabirvats.github.io/cse15l-report-1/testFailure.PNG)
+
 Now shown is a JUnit test that produces a correct result, and the resulting success message from the terminal:
 ```
 @Test
@@ -38,7 +40,9 @@ public void testAverageWithoutLowest() {
 }
 ```
 The test succeeds:
+
 ![Image](https://kabirvats.github.io/cse15l-report-2/testSuccess.PNG)
+
 The bug originates from this line of code: `if(num != lowest) { sum += num; }` which neglects the value of `num` if it is equal to the lowest value of the array. 
 
 In order to fix this, we have to ensure it only neglects the first instance of the lowest value of the array, and still uses all subsequent instances of that value in the calculation of the average. One way to fix this would be changing the for:each loop that calculates the sum from
