@@ -2,6 +2,8 @@
 
 ## Part 1 - Servers
 
+Last week, we learned how to host a server. For this lab, I wrote a server called StringServer that created a server that displayed an element of its URL on the webpage.
+
 ## Part 2 - Bugs
 
 This week, I was tasked with finding bugs in certain programs. One such program was designed to find the average of an array, disregarding the lowest term. The method is shown below:
