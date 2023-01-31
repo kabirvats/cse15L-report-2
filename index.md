@@ -49,8 +49,8 @@ for(double num: arr) {
 ```
 to 
 ```
+boolean foundLowest = false;
 for(double num: arr) {
-    boolean foundLowest = false;
     if(!foundLowest && num == lowest) {
       foundLowest = true;
       continue;
