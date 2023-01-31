@@ -23,8 +23,8 @@ This method works for some inputted arrays, but for other inputted arrays it fai
 ```
 @Test
 public void testAverageWithoutLowest() {
-  double[] input1 = {13,24,13,50};
-  assertEquals(25.0, ArrayExamples.averageWithoutLowest(input1), 0);
+  double[] input1 = {14,26,14,50};
+  assertEquals(30.0, ArrayExamples.averageWithoutLowest(input1), 0);
 }
 ```
 The test fails:
@@ -33,8 +33,8 @@ Now shown is a JUnit test that produces a correct result, and the resulting succ
 ```
 @Test
 public void testAverageWithoutLowest() {
-  double[] input1 = {14,24,12,50};
-  assertEquals(25.0, ArrayExamples.averageWithoutLowest(input1), 0);
+  double[] input1 = {14,26,12,50};
+  assertEquals(30.0, ArrayExamples.averageWithoutLowest(input1), 0);
 }
 ```
 The test succeeds:
