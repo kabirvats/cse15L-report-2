@@ -17,5 +17,5 @@ static double averageWithoutLowest(double[] arr) {
       if(num != lowest) { sum += num; }
   }
   return sum / (arr.length - 1);
-  }
+}
 ```
