@@ -29,7 +29,7 @@ public void testAverageWithoutLowest() {
 ```
 The test fails:
 
-![Image](https://kabirvats.github.io/cse15L-report-2/TestFailure.PNG)
+![Image](https://kabirvats.github.io/cse15L-report-2/TestFailure.png)
 
 Now shown is a JUnit test that produces a correct result, and the resulting success message from the terminal:
 ```
@@ -41,7 +41,7 @@ public void testAverageWithoutLowest() {
 ```
 The test succeeds:
 
-![Image](https://kabirvats.github.io/cse15L-report-2/TestsSuccess.PNG)
+![Image](https://kabirvats.github.io/cse15L-report-2/TestsSuccess.png)
 
 The bug originates from this line of code: `if(num != lowest) { sum += num; }` which neglects the value of `num` if it is equal to the lowest value of the array. 
 
