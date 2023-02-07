@@ -18,7 +18,7 @@ class Handler implements URLHandler {
                     things.add(params[1]);  
                     return String.join("\n", things);
         }
-        return "Nothing Added Yet";
+        return "ERROR: please visit the path /add-message?s= \"Anything You Want\"";;
     }
 }
 
@@ -39,11 +39,11 @@ Here are some screenshots from the running server:
 
 ![Image](https://kabirvats.github.io/cse15L-report-2/server1.png)
 
-In this first screenshot, the method handleRequest is called, and the array params is used to check if the string after the question mark matches the expected "s=[whatever]" behavior. After this, the user's string is put on the arraylist Things and shown on the webpage. The fields that are changed are the array params and the ArrayList things, and the displayed message is the return value of handleRequest. 
+In this first screenshot, the method handleRequest is called with the input parameter of the url, and the array params is used to check if the string after the question mark matches the expected "s=[whatever]" behavior. It is important to input the url that the user uses into this method because the method handleRequest parses through this inputted url to find the requested changes to the webpage. After this, the user's string is put on the arraylist Things and shown on the webpage. The fields that are changed are the array params and the ArrayList things, and the displayed message is the return value of handleRequest. 
 
 ![Image](https://kabirvats.github.io/cse15L-report-2/server2.png)
 
-In this second screenshot, the same method is called and the user's second requested string is added to things, with a new line. The second value of params is also changed in the process, as well as the ArrayList things. then this is returned by handleRequest.
+In this second screenshot, the same method is called with the new input url, and the user's second requested string is added to things, with a new line. The second value of params is also changed in the process, as well as the ArrayList things. then this is returned by handleRequest.
 
 ## Part 2 - Bugs
 
@@ -62,7 +62,7 @@ static double averageWithoutLowest(double[] arr) {
   return sum / (arr.length - 1);
 }
 ```
-This method works for some inputted arrays, but for other inputted arrays it fails to return the correct average. The type of input that produces an error is any array with multiple instances of the lowest value. Shown below is a JUnit test that produces an incorrect result, and the failure message from the terminal.
+This method works for some inputted arrays, but for other inputted arrays it fails to return the correct average. The type of input that produces an error is any array with multiple instances of the lowest value. Shown below is a JUnit test that produces an incorrect result, and the failure message from the terminal. The method inputs the array {14,26,14,50}, where the average without the lowest number (14) is 30.0. However, the faulty code calculates the average as if neither 14 was there, still using the length of 3 (the length of the array - 1).
 ```
 @Test
 public void testAverageWithoutLowest() {
@@ -74,7 +74,7 @@ The test fails:
 
 ![Image](https://kabirvats.github.io/cse15L-report-2/TestFailure.png)
 
-Now shown is a JUnit test that produces a correct result, and the resulting success message from the terminal:
+Now shown is a JUnit test that produces a correct result, and the resulting success message from the terminal. This method has an input of {14,26,12,50}. The method has the same expected output as the previous test(calculates the average without 12) of 30.0. The method generates a correct output of 30.0.
 ```
 @Test
 public void testAverageWithoutLowest() {
@@ -105,4 +105,27 @@ for(double num: arr) {
     sum += num;
 }
 ```
+The fully fixed method would look be as follows:
+```
+static double averageWithoutLowest(double[] arr) {
+  if(arr.length < 2) { return 0.0; }
+  double lowest = arr[0];
+  for(double num: arr) {
+    if(num < lowest) { lowest = num; }
+  }
+  double sum = 0;
+  boolean foundLowest = false;
+  for(double num: arr) {
+    if(!foundLowest && num == lowest) {
+      foundLowest = true;
+      continue;
+    }
+    sum += num;
+  }
+  return sum / (arr.length - 1);
+}
+```
+
 This fix makes it so that the first time the lowest value is found, it is skipped in calculation and the loop continues to execute. After the first time it finds the lowest value, it changes the boolean `foundLowest` to `true`, so no other values are skipped.
+
+One unique thing I learned during the past two weeks that I hadn't learned previously was how easy it is to run a server on your own device, without having to use anything other than a simple java file. Being able to host the server, and modify the text that was displayed was very intriguing, and I'm curious what tasks I can use this to perform in the future.
